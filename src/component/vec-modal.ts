@@ -37,23 +37,28 @@ export class VecModal extends Modal {
 		heading.setCssStyles({ paddingBottom: "1rem" });
 	}
 
-	createContainers() {
+	private createContainers() {
 		this.container = this.contentEl.createDiv();
-		this.container.setCssStyles({ display: "flex", alignItems: "left", flexDirection: "column" });
 		this.previewContainer = this.contentEl.createDiv();
 		this.options.target = this.previewContainer;
+		this.container.setCssStyles({
+			display: "flex",
+			alignItems: "left",
+			flexDirection: "column",
+		});
 	}
 
-	createSetting(name: string, container: HTMLElement) {
+	private createSetting(name: string, container: HTMLElement) {
 		return new Setting(container).setName(name);
 	}
 
-	initSettings() {
+	private initSettings() {
 		this.createSetting("Title", this.container).addText((text) => {
 			text.onChange((title) => {
 				this.options.title = title;
-			})
-		})
+				this.preview()
+			});
+		});
 
 		this.createSetting("X Axis Label", this.container).addText((text) => {
 			text.onChange((label) => {
@@ -70,56 +75,17 @@ export class VecModal extends Modal {
 				if (this.options.yAxis) {
 					this.options.yAxis.label = label;
 				} else {
-					this.options.yAxis = { label }
+					this.options.yAxis = { label };
 				}
-			})
-		})
 
 		this.createSetting("X/Y Bounds", this.container).addText((text) => {
 			text.setPlaceholder("minX,maxX,minY,maxY");
 			text.onChange(() => this.setBounds(text));
-		})
-
-
-		this.createSetting("Vectors", this.container).addButton((btn) => {
-			btn.setButtonText("Add Vector")
-			btn.onClick(() => this.appendVec(this.vectorCount));
-		})
-	}
-
-	appendVec(index: number) {
-		this.createSetting(`Vector ${this.vectorCount}`, this.container).addText((text) => {
-			text.setPlaceholder("x,y");
-			text.onChange(() => {
-				const { data } = this.options;
-				const vec = this.parseInputNumbers(text);
-				if (vec.length != 2) {
-					return;
-				}
-
-				const [x, y] = vec;
-				if (data?.[index] != null) {
-					data[index].vector = [x, y]
-				} else {
-					data?.push({
-						vector: [x, y],
-						graphType: 'polyline',
-						fnType: 'vector',
-
-					})
-				}
-
-				console.log(this.options);
-			})
 		});
 
-		this.createSetting(`Offset ${this.vectorCount}`, this.container).addText((text) => {
-			text.setPlaceholder("x,y");
-			text.onChange(() => {
-				const { data } = this.options;
-				const offset = this.parseInputNumbers(text);
-				if (offset.length != 2) {
-					return;
+
+		});
+
 				}
 
 				const [x, y] = offset;
