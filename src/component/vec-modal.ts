@@ -56,7 +56,7 @@ export class VecModal extends Modal {
 		this.createSetting("Title", this.container).addText((text) => {
 			text.onChange((title) => {
 				this.options.title = title;
-				this.preview()
+				this.preview();
 			});
 		});
 
@@ -67,7 +67,7 @@ export class VecModal extends Modal {
 				} else {
 					this.options.xAxis = { label };
 				}
-				this.preview()
+				this.preview();
 			});
 		});
 
@@ -78,7 +78,7 @@ export class VecModal extends Modal {
 				} else {
 					this.options.yAxis = { label };
 				}
-				this.preview()
+				this.preview();
 			});
 		});
 
@@ -108,7 +108,7 @@ export class VecModal extends Modal {
 				if (this.options.data) {
 					this.options.data[0].vector = [vec[0], vec[1]];
 				}
-				this.preview()
+				this.preview();
 				return;
 			default:
 				new Notice("Vector should contain 2 integers or 2 floating point numbers");
@@ -125,7 +125,7 @@ export class VecModal extends Modal {
 			this.options.data[0].offset = offset;
 		}
 
-		this.preview()
+		this.preview();
 	}
 
 	private parseInputNumbers(text: TextComponent) {
@@ -152,7 +152,7 @@ export class VecModal extends Modal {
 			this.options.yAxis.domain = [minY, maxY];
 		}
 
-		this.preview()
+		this.preview();
 	}
 
 	/*
@@ -164,7 +164,7 @@ export class VecModal extends Modal {
 	private preview() {
 		try {
 			this.plot = functionPlot(this.options);
-			this.plot != null && this.plot.build()
+			this.plot != null && this.plot.build();
 		} catch (err) {
 			console.debug(err);
 		}
