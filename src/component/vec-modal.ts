@@ -16,16 +16,12 @@ const DEFAULT_VEC_OPTIONS: FunctionPlotOptions = {
 export class VecModal extends Modal {
 	options: FunctionPlotOptions;
 	plot: Chart;
-
 	container: HTMLDivElement;
 	vecsContainer: HTMLDivElement;
 	previewContainer: HTMLDivElement;
 
-	vectorCount: number;
-
 	constructor(app: App) {
 		super(app);
-		this.vectorCount = 0;
 		this.options = DEFAULT_VEC_OPTIONS;
 	}
 
