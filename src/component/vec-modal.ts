@@ -31,9 +31,9 @@ export class VecModal extends Modal {
 		this.initSettings();
 	}
 
-	displayHeading() {
+	private displayHeading() {
 		const heading = this.contentEl.createEl("h1");
-		heading.setText("Plot 2d Vector");
+		heading.setText("2D Vector Plot");
 		heading.setCssStyles({ paddingBottom: "1rem" });
 	}
 
