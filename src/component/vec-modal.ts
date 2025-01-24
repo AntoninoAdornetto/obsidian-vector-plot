@@ -1,5 +1,5 @@
-import { Chart, FunctionPlotOptions } from "function-plot";
-import { App, Modal, Setting, TextComponent } from "obsidian";
+import functionPlot, { Chart, FunctionPlotOptions } from "function-plot";
+import { App, Modal, Notice, Setting, TextComponent } from "obsidian";
 
 const DEFAULT_VEC_OPTIONS: FunctionPlotOptions = {
 	target: "vec-plot-preview",
