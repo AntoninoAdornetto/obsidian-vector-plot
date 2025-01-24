@@ -67,8 +67,9 @@ export class VecModal extends Modal {
 				} else {
 					this.options.xAxis = { label };
 				}
-			})
-		})
+				this.preview()
+			});
+		});
 
 		this.createSetting("Y Axis Label", this.container).addText((text) => {
 			text.onChange((label) => {
@@ -77,6 +78,9 @@ export class VecModal extends Modal {
 				} else {
 					this.options.yAxis = { label };
 				}
+				this.preview()
+			});
+		});
 
 		this.createSetting("X/Y Bounds", this.container).addText((text) => {
 			text.setPlaceholder("minX,maxX,minY,maxY");
@@ -124,11 +128,15 @@ export class VecModal extends Modal {
 		this.preview()
 	}
 
-	parseInputNumbers(text: TextComponent) {
-		return text.getValue().split(",").map((n) => parseFloat(n.trim())).filter((n) => !isNaN(n));
+	private parseInputNumbers(text: TextComponent) {
+		return text
+			.getValue()
+			.split(",")
+			.map((n) => parseFloat(n.trim()))
+			.filter((n) => !isNaN(n));
 	}
 
-	setBounds(text: TextComponent) {
+	private setBounds(text: TextComponent) {
 		const bounds = this.parseInputNumbers(text);
 		if (bounds.length < 4) {
 			return;
@@ -142,6 +150,17 @@ export class VecModal extends Modal {
 
 		if (this.options.yAxis) {
 			this.options.yAxis.domain = [minY, maxY];
+		}
+
+		this.preview()
+	}
+
+	private preview() {
+		try {
+			this.plot = functionPlot(this.options);
+			this.plot != null && this.plot.build()
+		} catch (err) {
+			console.debug(err);
 		}
 	}
 }
