@@ -155,6 +155,12 @@ export class VecModal extends Modal {
 		this.preview()
 	}
 
+	/*
+	 * @TODO: debounce/timeout when plotting the vector preview
+	 * If the user is swiftly adding vector plot options, we do not
+	 * want to rebuild the plot on each key press. The better approach
+	 * is to wait some amount of time, and then display the preview.
+	 * */
 	private preview() {
 		try {
 			this.plot = functionPlot(this.options);
