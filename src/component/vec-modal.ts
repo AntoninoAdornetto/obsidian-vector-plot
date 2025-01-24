@@ -86,24 +86,34 @@ export class VecModal extends Modal {
 
 		});
 
+	private setVec(text: TextComponent) {
+		const vec = this.parseInputNumbers(text);
+		switch (vec.length) {
+			case 0:
+			case 1:
+				return;
+			case 2:
+				if (this.options.data) {
+					this.options.data[0].vector = [vec[0], vec[1]];
 				}
+				this.preview()
+				return;
+			default:
+				new Notice("Vector should contain 2 integers or 2 floating point numbers");
+		}
+	}
 
-				const [x, y] = offset;
-				if (data?.[index] != null) {
-					data[index].offset = [x, y]
-				} else {
-					data?.push({
-						offset: [x, y],
-						graphType: 'polyline',
-						fnType: 'vector',
-					})
-				}
+	private setOffset(text: TextComponent) {
+		const offset = this.parseInputNumbers(text);
+		if (!offset.length && this.options.data) {
+			return;
+		}
 
-				console.log(this.options);
-			})
-		});
+		if (this.options.data) {
+			this.options.data[0].offset = offset;
+		}
 
-		this.vectorCount = this.options.data?.length ?? 0;
+		this.preview()
 	}
 
 	parseInputNumbers(text: TextComponent) {
