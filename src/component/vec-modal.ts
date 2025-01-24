@@ -6,11 +6,12 @@ const DEFAULT_VEC_OPTIONS: FunctionPlotOptions = {
 	grid: true,
 	data: [
 		{
-			graphType: 'polyline',
-			fnType: 'vector',
-		}
-	]
-}
+			offset: [0, 0],
+			graphType: "polyline",
+			fnType: "vector",
+		},
+	],
+};
 
 export class VecModal extends Modal {
 	options: FunctionPlotOptions;
