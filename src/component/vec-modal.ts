@@ -83,8 +83,16 @@ export class VecModal extends Modal {
 			text.onChange(() => this.setBounds(text));
 		});
 
-
+		this.createSetting("Vector", this.container).addText((text) => {
+			text.setPlaceholder("x, y");
+			text.onChange(() => this.setVec(text));
 		});
+
+		this.createSetting("Offset", this.container).addText((text) => {
+			text.setPlaceholder("num1, num2, num3...");
+			text.onChange(() => this.setOffset(text));
+		});
+	}
 
 	private setVec(text: TextComponent) {
 		const vec = this.parseInputNumbers(text);
