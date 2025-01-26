@@ -19,6 +19,8 @@ export class VecModal extends Modal {
 	container: HTMLDivElement;
 	vecsContainer: HTMLDivElement;
 	previewContainer: HTMLDivElement;
+	previewTimeoutMS = 500;
+	timeoutID: NodeJS.Timeout | undefined;
 
 	constructor(app: App) {
 		super(app);
@@ -155,18 +157,19 @@ export class VecModal extends Modal {
 		this.preview();
 	}
 
-	/*
-	 * @TODO: debounce/timeout when plotting the vector preview
-	 * If the user is swiftly adding vector plot options, we do not
-	 * want to rebuild the plot on each key press. The better approach
-	 * is to wait some amount of time, and then display the preview.
-	 * */
 	private preview() {
-		try {
+		console.log(this.timeoutID);
+		if (this.timeoutID) {
+			clearTimeout(this.timeoutID);
+		}
+
+		this.timeoutID = setTimeout(this.plotVector.bind(this), this.previewTimeoutMS);
+	}
+
+	private plotVector() {
+		if (this.options?.data?.length) {
 			this.plot = functionPlot(this.options);
 			this.plot != null && this.plot.build();
-		} catch (err) {
-			console.debug(err);
 		}
 	}
 }
