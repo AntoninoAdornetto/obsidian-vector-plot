@@ -6,6 +6,7 @@ const DEFAULT_VEC_OPTIONS: FunctionPlotOptions = {
 	grid: true,
 	data: [
 		{
+			vector: [0, 0],
 			offset: [0, 0],
 			graphType: "polyline",
 			fnType: "vector",
